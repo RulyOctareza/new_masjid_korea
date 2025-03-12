@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBtAQpEqjVx4oWN4suPoxdu8OmtyOPCawU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>528323350529</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.masjidKorea</string>
+	<key>PROJECT_ID</key>
+	<string>masjidkorea-2f6fd</string>
+	<key>STORAGE_BUCKET</key>
+	<string>masjidkorea-2f6fd.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:528323350529:ios:de76e40723e5c4e9a13000</string>
+	<key>DATABASE_URL</key>
+	<string>https://masjidkorea-2f6fd-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>
