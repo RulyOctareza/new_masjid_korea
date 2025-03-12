@@ -1,0 +1,35 @@
+name: masjid_korea
+description: "Aplikasi Masjid di Korea Selatan"
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  bloc: ^9.0.0
+  equatable: ^2.0.7
+  cloud_firestore: ^5.6.5
+  url_launcher: ^6.3.1
+  geolocator: ^13.0.2
+  location: ^8.0.0
+  flutter_bloc: ^9.1.0
+  dio: ^5.8.0+1
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+assets:
+  - assets/
