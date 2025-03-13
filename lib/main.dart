@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:masjid_korea/cubit/masjid_cubit.dart';
+import 'package:masjid_korea/cubit/theme_masjid.dart';
 import 'package:masjid_korea/pages/homepage.dart';
+import 'package:masjid_korea/styles/theme.dart';
 
 import 'firebase_options.dart';
 
@@ -15,11 +19,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => MasjidCubit()),
+        BlocProvider(create: (context) => ThemeCubit()),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, themeMode) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: themeMode,
+            home: Homepage(),
+          );
+        },
       ),
-      home: Homepage(),
     );
   }
 }
