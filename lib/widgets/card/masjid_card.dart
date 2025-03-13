@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
+import 'package:masjid_korea/extensions/theme_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
 import 'package:masjid_korea/styles/theme.dart';
 
-class SpaceCard extends StatelessWidget {
+class MasjidCard extends StatelessWidget {
   final MasjidModel masjid;
   final double? distance;
 
-  const SpaceCard(this.masjid, {this.distance, super.key});
+  const MasjidCard(this.masjid, {this.distance, super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = context.theme.brightness == Brightness.dark;
 
     return InkWell(
       onTap: () {},
@@ -79,9 +80,9 @@ class SpaceCard extends StatelessWidget {
                   if (distance != null)
                     Text(
                       '${distance!.toStringAsFixed(2)} km',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey,
+                      ),
                     ),
                 ],
               ),

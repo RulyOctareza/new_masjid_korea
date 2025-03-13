@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masjid_korea/cubit/masjid_cubit.dart';
 import 'package:masjid_korea/cubit/theme_masjid.dart';
-import 'package:masjid_korea/pages/homepage.dart';
+import 'package:masjid_korea/pages/splash_page.dart';
 import 'package:masjid_korea/styles/theme.dart';
 
 import 'firebase_options.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: themeMode,
-            home: Homepage(),
+            home: SplashPage(),
           );
         },
       ),

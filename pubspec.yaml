@@ -22,6 +22,7 @@ dependencies:
   dio: ^5.8.0+1
   google_fonts: ^6.2.1
   firebase_core: ^3.12.1
+  html: ^0.15.5
 
 dev_dependencies:
   flutter_test:
@@ -32,5 +33,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-assets:
-  - assets/
+  assets:
+    - assets/
