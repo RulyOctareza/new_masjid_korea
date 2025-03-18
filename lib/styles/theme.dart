@@ -39,8 +39,8 @@ ThemeData lightTheme = ThemeData(
   primaryColor: purpleColor,
   hintColor: blackColor,
   textTheme: TextTheme(
-    bodyLarge: blackTextStyle,
-    bodyMedium: regularTextStyle,
+    bodyLarge: blackTextStyle.copyWith(fontSize: 24),
+    bodyMedium: regularTextStyle.copyWith(fontSize: 24),
     titleLarge: blackTextStyle.copyWith(fontSize: 24),
     titleMedium: greyTextStyle.copyWith(fontSize: 16),
   ),
@@ -51,8 +51,8 @@ ThemeData darkTheme = ThemeData(
   primaryColor: purpleColor,
   hintColor: whiteColor,
   textTheme: TextTheme(
-    bodyLarge: whiteTextStyle,
-    bodyMedium: whiteTextStyle,
+    bodyLarge: whiteTextStyle.copyWith(fontSize: 24),
+    bodyMedium: whiteTextStyle.copyWith(fontSize: 16),
     titleLarge: whiteTextStyle.copyWith(fontSize: 24),
     titleMedium: greyTextStyle.copyWith(fontSize: 16),
   ),

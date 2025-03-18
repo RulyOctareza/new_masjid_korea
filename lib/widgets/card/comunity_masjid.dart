@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
+
 import 'package:masjid_korea/styles/theme.dart';
 import 'package:masjid_korea/widgets/comunity_masjid_card.dart';
 
@@ -19,7 +20,9 @@ class ComunityMasjid extends StatelessWidget {
             padding: EdgeInsets.only(left: edge),
             child: Text(
               'Community of Mosque',
-              style: context.textTheme.bodyLarge?.copyWith(fontSize: 16),
+              style: context.textTheme.bodyLarge?.copyWith(
+                fontSize: 16.toDouble(),
+              ),
             ),
           ),
           const SizedBox(height: 16),

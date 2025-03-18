@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masjid_korea/cubit/theme_masjid.dart';
-import 'package:masjid_korea/pages/homepage.dart';
+import 'package:masjid_korea/pages/homepage/homepage.dart';
 import 'package:masjid_korea/styles/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +56,7 @@ class SplashPage extends StatelessWidget {
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
-                                    image: AssetImage('assets/logo_kmi.png'),
+                                    image: AssetImage('assets/logo_kmi.png',),
                                   ),
                                 ),
                               ),
@@ -81,6 +81,8 @@ class SplashPage extends StatelessWidget {
                                 height: 60,
                                 child: ElevatedButton(
                                   onPressed: () {
+
+
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -122,6 +124,7 @@ class SplashPage extends StatelessWidget {
                         height: MediaQuery.of(context).size.height,
                         child: Image.asset(
                           'assets/background.jpg',
+                         
                           fit: BoxFit.fill,
                         ),
                       ),

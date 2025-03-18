@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'dart:html' as html;
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:geolocator/geolocator.dart';
 
 class LocationService {
@@ -14,38 +14,38 @@ class LocationService {
 
   Future<void> getLocation() async {
     if (kIsWeb) {
-      await _getLocationWeb();
+      //  await _getLocationWeb();
     } else {
       await _getLocationNative();
     }
   }
 
-  Future<void> _getLocationWeb() async {
-    try {
-      await html.window.navigator.geolocation.getCurrentPosition().then((
-        position,
-      ) {
-        _currentPosition = Position(
-          latitude: position.coords!.latitude!.toDouble(),
-          longitude: position.coords!.longitude!.toDouble(),
-          timestamp: DateTime.now(),
-          accuracy: position.coords!.accuracy?.toDouble() ?? 0.0,
-          altitude: position.coords!.altitude?.toDouble() ?? 0.0,
-          heading: position.coords!.heading?.toDouble() ?? 0.0,
-          speed: position.coords!.speed?.toDouble() ?? 0.0,
-          speedAccuracy: 0.0,
-          altitudeAccuracy: 0,
-          headingAccuracy: 0,
-        );
-        _permissionGranted = true;
-        _locationServiceEnabled = true;
-      });
-    } catch (e) {
-      log('Error getting location on web: $e');
-      _permissionGranted = false;
-      _locationServiceEnabled = false;
-    }
-  }
+  // Future<void> _getLocationWeb() async {
+  //   try {
+  //     final geolocation = web.window.navigator.geolocation;
+
+  //     // Gunakan await untuk mendapatkan hasilnya
+  //     final position = await geolocation.getCurrentPosition().toDart;
+  //     _currentPosition = Position(
+  //       latitude: position.coords.latitude.toDouble(),
+  //       longitude: position.coords.longitude.toDouble(),
+  //       timestamp: DateTime.now(),
+  //       accuracy: position.coords.accuracy.toDouble(),
+  //       altitude: position.coords.altitude?.toDouble() ?? 0.0,
+  //       heading: position.coords.heading?.toDouble() ?? 0.0,
+  //       speed: position.coords.speed?.toDouble() ?? 0.0,
+  //       speedAccuracy: 0.0,
+  //       altitudeAccuracy: 0,
+  //       headingAccuracy: 0,
+  //     );
+  //     _permissionGranted = true;
+  //     _locationServiceEnabled = true;
+  //   } catch (e) {
+  //     log('Error getting location on web: $e');
+  //     _permissionGranted = false;
+  //     _locationServiceEnabled = false;
+  //   }
+  // }
 
   Future<void> _getLocationNative() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -75,8 +75,9 @@ class LocationService {
     _locationServiceEnabled = true;
 
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
     );
+
     log('Location data: ${position.latitude}, ${position.longitude}');
     _currentPosition = position;
   }

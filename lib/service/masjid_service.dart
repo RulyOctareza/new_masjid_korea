@@ -7,6 +7,8 @@ class MasjidService {
   final CollectionReference _masjidReference = FirebaseFirestore.instance
       .collection('masjids');
 
+
+
   Future<List<MasjidModel>> fetchMasjid() async {
     try {
       QuerySnapshot result = await _masjidReference.get();

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:masjid_korea/cubit/masjid_cubit.dart';
-
 import 'package:masjid_korea/extensions/theme_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
-import 'package:masjid_korea/pages/comunity_masjid_page.dart';
-
-import 'package:masjid_korea/pages/masjid_terdekat.dart';
+import 'package:masjid_korea/pages/masjid_terdekat/masjid_terdekat.dart';
 import 'package:masjid_korea/styles/theme.dart';
 import 'package:masjid_korea/widgets/card/comunity_masjid.dart';
 import 'package:masjid_korea/widgets/rekomendasi_masjid.dart';
-
 import 'package:masjid_korea/widgets/title_card.dart';
 
 class Homepage extends StatefulWidget {
@@ -57,7 +52,6 @@ class _HomepageState extends State<Homepage> {
               },
               builder: (context, state) {
                 if (state is MasjidSuccess) {
-                  final List<MasjidModel> masjid;
                   return ListView(
                     children: [
                       TitleCard(),

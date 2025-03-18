@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
 
-import 'package:masjid_korea/pages/comunity_masjid_page.dart';
+import 'package:masjid_korea/pages/comunity/comunity_masjid_page.dart';
 
 class KomunitasMasjid extends StatelessWidget {
   final String communityName;
@@ -43,7 +43,7 @@ class KomunitasMasjid extends StatelessWidget {
             child: Text(
               communityName,
               style: context.textTheme.bodyLarge?.copyWith(
-                fontSize: 12,
+                fontSize: 12.toDouble(),
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
