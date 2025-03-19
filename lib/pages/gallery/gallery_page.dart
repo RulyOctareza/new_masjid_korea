@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
 
 class GalleryPage extends StatelessWidget {
@@ -66,7 +67,7 @@ class GalleryPage extends StatelessWidget {
         return Dialog(
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+             context.goBack();
             },
             child: Container(
               width: double.infinity,

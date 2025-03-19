@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
 
-import 'package:masjid_korea/pages/comunity/comunity_masjid_page.dart';
 
 class KomunitasMasjid extends StatelessWidget {
   final String communityName;
@@ -17,12 +17,7 @@ class KomunitasMasjid extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => CommunityMasjidPage(communityName),
-          ),
-        );
+        context.navigateTo('/comunity');
       },
       child: Column(
         children: [

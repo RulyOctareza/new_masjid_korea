@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 
-import 'package:masjid_korea/pages/detail/detail_page.dart';
 import 'package:masjid_korea/widgets/card/masjid_card.dart';
 
 import '../models/remote/masjid_model.dart';
@@ -37,14 +37,7 @@ class RekomendasiMasjid extends StatelessWidget {
           children:
               displayedMasjid.map((masjid) {
                 return InkWell(
-                  onTap:
-                      () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder:
-                              (context) =>
-                                  DetailPage(masjid: masjid), 
-                        ),
-                      ),
+                  onTap: () => context.navigateTo('/detail'),
                   child: MasjidCard(masjid),
                 );
               }).toList(),

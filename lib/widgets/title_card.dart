@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masjid_korea/cubit/theme_masjid.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
-import 'package:masjid_korea/pages/search/search_page.dart';
 import 'package:masjid_korea/styles/theme.dart';
 
 class TitleCard extends StatelessWidget {
@@ -31,9 +31,7 @@ class TitleCard extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute(builder: (context) => SearchPage()));
+                  context.navigateTo('/search');
                 },
                 icon: const Icon(Icons.search),
               ),

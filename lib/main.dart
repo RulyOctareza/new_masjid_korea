@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masjid_korea/cubit/masjid_cubit.dart';
 import 'package:masjid_korea/cubit/theme_masjid.dart';
-import 'package:masjid_korea/pages/splashpage/splash_page.dart';
+import 'package:masjid_korea/models/remote/masjid_model.dart';
+import 'package:masjid_korea/routes/routes.dart';
 import 'package:masjid_korea/styles/theme.dart';
 
 import 'firebase_options.dart';
@@ -11,11 +12,18 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final MasjidModel defaultMasjid = MasjidModel(
+    id: '1',
+    name: 'Masjid Al-Ishlah',
+    location: 'Gwangju',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +34,14 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
+          final appRoutes = AppRoutes(defaultMasjid);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: themeMode,
-            home: SplashPage(),
+            initialRoute: '/',
+            routes: appRoutes.getRoutes(),
           );
         },
       ),

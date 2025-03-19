@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:masjid_korea/cubit/masjid_cubit.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
 import 'package:masjid_korea/pages/search/daftar_masjid.dart';
@@ -101,7 +102,13 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               );
             }
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: Lottie.asset(
+                'assets/loading.json',
+                width: 150,
+                height: 150,
+              ),
+            );
           },
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 
 class Searchbox extends StatelessWidget {
   final TextEditingController controller;
@@ -18,6 +19,12 @@ class Searchbox extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           hintText: 'Cari Masjid...',
+          suffix: IconButton(
+            onPressed: () {
+              context.goBack();
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
           prefixIcon: const Icon(Icons.search),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
           contentPadding: const EdgeInsets.symmetric(

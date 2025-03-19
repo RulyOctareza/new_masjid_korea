@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masjid_korea/cubit/theme_masjid.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
 import 'package:masjid_korea/pages/detail/detail_button.dart';
@@ -84,7 +85,7 @@ class _DetailPageState extends State<DetailPage> {
                       left: 5,
                       child: IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                         context.goBack();
                         },
                         icon: Icon(
                           Icons.arrow_back,

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masjid_korea/cubit/theme_masjid.dart';
-import 'package:masjid_korea/pages/homepage/homepage.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/styles/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -77,16 +77,7 @@ class SplashPage extends StatelessWidget {
                               height: 60,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) => const Homepage(
-                                            rekomendasiMasjid: [],
-                                            comunityMasjid: [],
-                                          ),
-                                    ),
-                                  );
+                                  context.navigateAndRemove('/homepage');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: purpleColor,
@@ -156,16 +147,7 @@ class SplashPage extends StatelessWidget {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (context) => const Homepage(
-                                          rekomendasiMasjid: [],
-                                          comunityMasjid: [],
-                                        ),
-                                  ),
-                                );
+                               context.navigateAndRemove('/homepage');
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: purpleColor,

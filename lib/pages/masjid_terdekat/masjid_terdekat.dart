@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
 import 'package:masjid_korea/service/distance_calculate.dart';
 import 'package:masjid_korea/service/location_service.dart';
@@ -45,7 +46,8 @@ class _MasjidTerdekatState extends State<MasjidTerdekat> {
     }
 
     if (_locationService.currentPosition == null) {
-      return const Center(child: CircularProgressIndicator());
+      return  Center(child: Lottie.asset('assets/loading.json', width: 150, height: 150),
+      );
     }
 
     List<MasjidModel> nearbyMasjids =

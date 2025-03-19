@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:masjid_korea/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
 import 'package:masjid_korea/extensions/theme_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
-import 'package:masjid_korea/pages/detail/detail_page.dart';
 import 'package:masjid_korea/styles/theme.dart';
 
 class MasjidCard extends StatelessWidget {
@@ -17,9 +17,7 @@ class MasjidCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => DetailPage(masjid: masjid)),
-        );
+        context.navigateAndReplace('/detail');
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: edge),
