@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
 
@@ -17,7 +15,7 @@ class DetailHeader extends StatelessWidget {
         width: 300,
         height: 300,
         fit: BoxFit.fill,
-        semanticLabel: 'Name of Masjid',
+        semanticLabel: 'logo of Masjid',
       ),
     );
   }

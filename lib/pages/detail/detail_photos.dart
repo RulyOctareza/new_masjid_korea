@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
+import 'package:masjid_korea/pages/gallery/gallery_page.dart';
 
 class DetailPhotos extends StatelessWidget {
   final MasjidModel masjid;
 
-  const DetailPhotos({super.key, required this.masjid});
+  DetailPhotos({super.key, required this.masjid});
 
   @override
   Widget build(BuildContext context) {
@@ -24,26 +25,34 @@ class DetailPhotos extends StatelessWidget {
         const SizedBox(height: 12),
         SizedBox(
           height: 88,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              const SizedBox(width: 24),
-              ...List.generate(6, (index) {
-                final photo = _getPhotoByIndex(index);
-                return Padding(
-                  padding: const EdgeInsets.only(right: 18),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.network(
-                      photo,
-                      width: 110,
-                      height: 88,
-                      fit: BoxFit.cover,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GalleryPage(masjid)),
+              );
+            },
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                const SizedBox(width: 24),
+                ...List.generate(6, (index) {
+                  final photo = _getPhotoByIndex(index);
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 18),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        photo,
+                        width: 110,
+                        height: 88,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                );
-              }),
-            ],
+                  );
+                }),
+              ],
+            ),
           ),
         ),
       ],
