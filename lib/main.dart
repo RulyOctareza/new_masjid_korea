@@ -1,18 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:masjid_korea/cubit/masjid_cubit.dart';
-import 'package:masjid_korea/cubit/theme_masjid.dart';
-import 'package:masjid_korea/models/remote/masjid_model.dart';
-import 'package:masjid_korea/routes/routes.dart';
-import 'package:masjid_korea/styles/theme.dart';
+import 'package:masjid_korea/presentation/cubit/masjid_cubit.dart';
+import 'package:masjid_korea/presentation/cubit/theme_masjid.dart';
+import 'package:masjid_korea/data/models/remote/masjid_model.dart';
+import 'package:masjid_korea/core/utils/routes/routes.dart';
+import 'package:masjid_korea/core/theme/theme.dart';
 
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   runApp(MyApp());
 }
 
