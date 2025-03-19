@@ -42,52 +42,55 @@ class _DetailPageState extends State<DetailPage> {
                       width: double.infinity,
                       child: Container(
                         width: double.infinity,
-                        color: Color.fromRGBO(242, 242, 242, 1),
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? Color.fromRGBO(43, 43, 43, 1)
+                                : Color.fromRGBO(242, 242, 242, 1),
                         child: DetailHeader(masjid: widget.masjid),
                         padding: EdgeInsets.only(bottom: 20),
                       ),
                     ),
                     ListView(
-                        children: [
-                          const SizedBox(height: 280),
-                          BlocBuilder<ThemeCubit, ThemeMode>(
-                            builder: (context, themeMode) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color:
-                                      themeMode == ThemeMode.dark
-                                          ? blackColor
-                                          : whiteColor,
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(20),
-                                  ),
+                      children: [
+                        const SizedBox(height: 280),
+                        BlocBuilder<ThemeCubit, ThemeMode>(
+                          builder: (context, themeMode) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color:
+                                    themeMode == ThemeMode.dark
+                                        ? blackColor
+                                        : whiteColor,
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(20),
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        widget.masjid.name,
-                                        textAlign: TextAlign.center,
-                                        style: context.textTheme.bodyLarge
-                                            ?.copyWith(fontSize: 32.toDouble()),
-                                      ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      widget.masjid.name,
+                                      textAlign: TextAlign.center,
+                                      style: context.textTheme.bodyLarge
+                                          ?.copyWith(fontSize: 32.toDouble()),
                                     ),
-                                    DetailPhotos(masjid: widget.masjid),
-                                    const SizedBox(height: 30),
-                                    DetailLocation(masjid: widget.masjid),
-                                    const SizedBox(height: 25),
-                                    DetailButton(masjid: widget.masjid),
-                                    const SizedBox(height: 50),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                                  ),
+                                  DetailPhotos(masjid: widget.masjid),
+                                  const SizedBox(height: 30),
+                                  DetailLocation(masjid: widget.masjid),
+                                  const SizedBox(height: 25),
+                                  DetailButton(masjid: widget.masjid),
+                                  const SizedBox(height: 50),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
 
                     Positioned(
                       top: 16,
