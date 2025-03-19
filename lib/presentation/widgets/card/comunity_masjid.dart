@@ -19,7 +19,7 @@ class ComunityMasjid extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: edge),
             child: Text(
-              'Community of Mosque',
+              'Mosque Communities',
               style: context.textTheme.bodyLarge?.copyWith(
                 fontSize: 16.toDouble(),
               ),
