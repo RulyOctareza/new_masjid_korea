@@ -37,55 +37,64 @@ class _DetailPageState extends State<DetailPage> {
                 child: Stack(
                   alignment: AlignmentDirectional.topCenter,
                   children: [
-                    DetailHeader(masjid: widget.masjid),
-                    ListView(
-                      children: [
-                        const SizedBox(height: 328),
-                        BlocBuilder<ThemeCubit, ThemeMode>(
-                          builder: (context, themeMode) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color:
-                                    themeMode == ThemeMode.dark
-                                        ? blackColor
-                                        : whiteColor,
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(20),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      widget.masjid.name,
-                                      textAlign: TextAlign.center,
-                                      style: context.textTheme.bodyLarge
-                                          ?.copyWith(fontSize: 32.toDouble()),
-                                    ),
-                                  ),
-                                  DetailPhotos(masjid: widget.masjid),
-                                  const SizedBox(height: 30),
-                                  DetailLocation(masjid: widget.masjid),
-                                  const SizedBox(height: 25),
-                                  DetailButton(masjid: widget.masjid),
-                                  const SizedBox(height: 50),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                    SizedBox(
+                      height: 300,
+                      width: double.infinity,
+                      child: Container(
+                        width: double.infinity,
+                        color: Color.fromRGBO(242, 242, 242, 1),
+                        child: DetailHeader(masjid: widget.masjid),
+                        padding: EdgeInsets.only(bottom: 20),
+                      ),
                     ),
+                    ListView(
+                        children: [
+                          const SizedBox(height: 280),
+                          BlocBuilder<ThemeCubit, ThemeMode>(
+                            builder: (context, themeMode) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  color:
+                                      themeMode == ThemeMode.dark
+                                          ? blackColor
+                                          : whiteColor,
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(20),
+                                  ),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        widget.masjid.name,
+                                        textAlign: TextAlign.center,
+                                        style: context.textTheme.bodyLarge
+                                            ?.copyWith(fontSize: 32.toDouble()),
+                                      ),
+                                    ),
+                                    DetailPhotos(masjid: widget.masjid),
+                                    const SizedBox(height: 30),
+                                    DetailLocation(masjid: widget.masjid),
+                                    const SizedBox(height: 25),
+                                    DetailButton(masjid: widget.masjid),
+                                    const SizedBox(height: 50),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
 
                     Positioned(
                       top: 16,
                       left: 5,
                       child: IconButton(
                         onPressed: () {
-                         context.goBack();
+                          context.goBack();
                         },
                         icon: Icon(
                           Icons.arrow_back,
