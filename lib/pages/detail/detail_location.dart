@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:masjid_korea/extensions/text_extensions.dart';
 import 'package:masjid_korea/models/remote/masjid_model.dart';
 import 'package:masjid_korea/service/map_utils.dart';
@@ -27,12 +28,26 @@ class DetailLocation extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 width: 200,
                 child: Text(masjid.location, style: greyTextStyle),
               ),
+              Spacer(),
+              GestureDetector(
+                onTap: () async {
+                  await Clipboard.setData(ClipboardData(text: masjid.location));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      padding: EdgeInsets.all(8),
+                      backgroundColor: Colors.green,
+                      content: Text('Location copied to clipboard!'),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.copy),
+              ),
+              const SizedBox(width: 35),
               GestureDetector(
                 onTap: () async {
                   await MapUtils().openKakaoMap(masjid.address);
