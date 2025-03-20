@@ -37,10 +37,22 @@ class _DetailPageState extends State<DetailPage> {
                 child: Stack(
                   alignment: AlignmentDirectional.topCenter,
                   children: [
-                    DetailHeader(masjid: widget.masjid),
+                    SizedBox(
+                      height: 300,
+                      width: double.infinity,
+                      child: Container(
+                        width: double.infinity,
+                        color:
+                            themeMode == ThemeMode.dark
+                                ? Color.fromRGBO(43, 43, 43, 1)
+                                : Color.fromRGBO(242, 242, 242, 1),
+                        child: DetailHeader(masjid: widget.masjid),
+                        padding: EdgeInsets.only(bottom: 20),
+                      ),
+                    ),
                     ListView(
                       children: [
-                        const SizedBox(height: 328),
+                        const SizedBox(height: 280),
                         BlocBuilder<ThemeCubit, ThemeMode>(
                           builder: (context, themeMode) {
                             return Container(
@@ -85,7 +97,7 @@ class _DetailPageState extends State<DetailPage> {
                       left: 5,
                       child: IconButton(
                         onPressed: () {
-                         context.goBack();
+                          context.goBack();
                         },
                         icon: Icon(
                           Icons.arrow_back,

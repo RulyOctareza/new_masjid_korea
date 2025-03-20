@@ -14,8 +14,8 @@ class DetailHeader extends StatelessWidget {
         masjid.imageUrl,
         width: 300,
         height: 300,
-        fit: BoxFit.fill,
-        semanticLabel: 'logo of Masjid',
+        fit: BoxFit.fitHeight,
+        semanticLabel: masjid.name,
       ),
     );
   }
