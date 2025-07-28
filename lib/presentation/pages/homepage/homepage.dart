@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:masjid_korea/presentation/cubit/masjid_cubit.dart';
 import 'package:masjid_korea/presentation/extensions/theme_extensions.dart';
+import 'package:masjid_korea/presentation/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/data/models/remote/masjid_model.dart';
 import 'package:masjid_korea/presentation/pages/masjid_terdekat/masjid_terdekat.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
@@ -74,6 +75,13 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          context.navigateTo('/admin_login');
+        },
+        label: const Text('Admin Login'),
+        icon: const Icon(Icons.admin_panel_settings),
+      ),
     );
   }
 }
