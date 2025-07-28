@@ -20,11 +20,11 @@ class AdminDashboardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Foto masjid (jika ada)
-            if (masjid.photos.isNotEmpty)
+            if (masjid.imageUrl.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  masjid.photos.first,
+                  masjid.imageUrl,
                   width: 80,
                   height: 80,
                   fit: BoxFit.cover,
