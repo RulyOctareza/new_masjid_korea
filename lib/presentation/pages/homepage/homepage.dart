@@ -63,7 +63,8 @@ class _HomepageState extends State<Homepage> {
                     ],
                   );
                 }
-                return Center(child: Lottie.asset(
+                return Center(
+                  child: Lottie.asset(
                     'assets/loading.json',
                     width: 150,
                     height: 150,

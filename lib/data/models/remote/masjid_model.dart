@@ -36,19 +36,18 @@ class MasjidModel extends Equatable {
   factory MasjidModel.fromJson(String id, Map<String, dynamic> json) =>
       MasjidModel(
         id: id,
-        name: json['name'],
-        city: json['city'],
-        location: json['location'],
-        address: json['address'],
-        rating: json['rating'].toDouble(),
-        imageUrl: json['imageUrl'],
-        photos: json.entries
-          .where((entry) => entry.key.startsWith('photo') && entry.value.isNotEmpty)
-          .map((entry) => entry.value as String)
-          .toList(),
-        comunity: json['comunity'],
-        latitude: json['latitude'],
-        longitude: json['longitude'],
+        name: json['name'] ?? '',
+        city: json['city'] ?? '',
+        location: json['location'] ?? '',
+        address: json['address'] ?? '',
+        rating: (json['rating'] == null) ? 0.0 : (json['rating'] is double ? json['rating'] : double.tryParse(json['rating'].toString()) ?? 0.0),
+        imageUrl: json['imageUrl'] ?? '',
+        photos: (json['photos'] is List)
+          ? List<String>.from(json['photos'])
+          : [],
+        comunity: json['comunity'] ?? '',
+        latitude: (json['latitude'] == null) ? 0.0 : (json['latitude'] is double ? json['latitude'] : double.tryParse(json['latitude'].toString()) ?? 0.0),
+        longitude: (json['longitude'] == null) ? 0.0 : (json['longitude'] is double ? json['longitude'] : double.tryParse(json['longitude'].toString()) ?? 0.0),
       );
 
   Map<String, dynamic> toJson() => {

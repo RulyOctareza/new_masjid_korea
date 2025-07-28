@@ -14,11 +14,12 @@ class AppRoutes {
   final MasjidModel masjid;
   AppRoutes(this.masjid);
 
+  /// Builder route clean, scalable, dan mudah maintain
   Map<String, WidgetBuilder> getRoutes() {
     return {
       '/': (context) => SplashPage(),
-      '/homepage':
-          (context) => Homepage(rekomendasiMasjid: [], comunityMasjid: []),
+      '/homepage': (context) => Homepage(rekomendasiMasjid: [], comunityMasjid: []),
+      // Fix: gunakan masjid.comunity untuk halaman komunitas
       '/comunity': (context) => CommunityMasjidPage(masjid.comunity),
       '/detail': (context) => DetailPage(masjid: masjid),
       '/error': (context) => ErrorPage(),
@@ -26,7 +27,7 @@ class AppRoutes {
       '/search': (context) => SearchPage(),
       '/admin_login': (context) => const AdminLoginPage(),
       '/admin_dashboard': (context) => const AdminDashboardPage(),
-      // TODO: Tambahkan route dashboard admin setelah file dibuat
+      // Tambahkan route lain jika dibutuhkan
     };
   }
 }
