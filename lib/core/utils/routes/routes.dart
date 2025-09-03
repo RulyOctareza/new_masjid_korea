@@ -19,7 +19,7 @@ class AppRoutes {
           (context) => Homepage(rekomendasiMasjid: [], comunityMasjid: []),
       '/comunity': (context) => CommunityMasjidPage(masjid.comunity),
       '/detail': (context) => DetailPage(masjid: masjid),
-      '/error': (context) => ErrorPage(),
+      // Fix: gunakan masjid.comunity untuk halaman komunitas
       '/gallery': (context) => GalleryPage(masjid),
       '/search': (context) => SearchPage(),
     };

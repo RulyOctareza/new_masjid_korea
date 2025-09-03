@@ -7,44 +7,70 @@ class MasjidService {
   final CollectionReference _masjidReference = FirebaseFirestore.instance
       .collection('masjids');
 
-
-
   Future<List<MasjidModel>> fetchMasjid() async {
     try {
       QuerySnapshot result = await _masjidReference.get();
 
-      List<MasjidModel> masjid =
-          result.docs.map((e) {
-            return MasjidModel.fromJson(e.id, e.data() as Map<String, dynamic>);
-          }).toList();
+      if (result.docs.isEmpty) {
+        log('Warning: No masjid documents found in Firestore');
+        return [];
+      }
+
+      List<MasjidModel> masjid = result.docs.map((e) {
+        try {
+          return MasjidModel.fromJson(e.id, e.data() as Map<String, dynamic>);
+        } catch (error) {
+          log('Error parsing masjid document: $error');
+          return null;
+        }
+      })
+      .where((model) => model != null)
+      .cast<MasjidModel>()
+      .toList();
 
       return masjid;
     } catch (e) {
-      log(e.toString());
-      rethrow;
+      log('Error fetching masjid data: ${e.toString()}');
+      // Return empty list instead of rethrowing to prevent app crashes
+      return [];
     }
   }
 
   Future<List<MasjidModel>> fetchMasjidByComunity(String comunity) async {
     try {
+      if (comunity.isEmpty) {
+        log('Warning: Empty community parameter provided');
+        return [];
+      }
+      
       QuerySnapshot result =
           await _masjidReference.where('comunity', isEqualTo: comunity).get();
 
-      List<MasjidModel> masjid =
-          result.docs
-              .map(
-                (e) => MasjidModel.fromJson(
-                  e.id,
-                  e.data() as Map<String, dynamic>,
-                ),
-              )
-              .toList();
+      if (result.docs.isEmpty) {
+        log('Warning: No masjid documents found for community: $comunity');
+        return [];
+      }
+
+      List<MasjidModel> masjid = result.docs.map((e) {
+        try {
+          return MasjidModel.fromJson(
+            e.id,
+            e.data() as Map<String, dynamic>,
+          );
+        } catch (error) {
+          log('Error parsing masjid document: $error');
+          return null;
+        }
+      })
+      .where((model) => model != null)
+      .cast<MasjidModel>()
+      .toList();
 
       return masjid;
     } catch (e) {
-      rethrow;
+      log('Error fetching masjid data by community: ${e.toString()}');
+      // Return empty list instead of rethrowing to prevent app crashes
+      return [];
     }
   }
-
-
 }

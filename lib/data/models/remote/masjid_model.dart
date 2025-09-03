@@ -36,20 +36,48 @@ class MasjidModel extends Equatable {
   factory MasjidModel.fromJson(String id, Map<String, dynamic> json) =>
       MasjidModel(
         id: id,
-        name: json['name'],
-        city: json['city'],
-        location: json['location'],
-        address: json['address'],
-        rating: json['rating'].toDouble(),
-        imageUrl: json['imageUrl'],
-        photos: json.entries
-          .where((entry) => entry.key.startsWith('photo') && entry.value.isNotEmpty)
-          .map((entry) => entry.value as String)
-          .toList(),
-        comunity: json['comunity'],
-        latitude: json['latitude'],
-        longitude: json['longitude'],
+        name: json['name'] ?? '',
+        city: json['city'] ?? '',
+        location: json['location'] ?? '',
+        address: json['address'] ?? '',
+        rating: _parseDouble(json['rating']),
+        imageUrl: json['imageUrl'] ?? '',
+        photos: _parsePhotos(json),
+        comunity: json['comunity'] ?? '',
+        latitude: _parseDouble(json['latitude']),
+        longitude: _parseDouble(json['longitude']),
       );
+      
+  // Helper method untuk mengkonversi nilai ke double dengan aman
+  static double _parseDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is double) return value;
+    if (value is int) return value.toDouble();
+    if (value is String) {
+      try {
+        return double.parse(value);
+      } catch (_) {
+        return 0.0;
+      }
+    }
+    return 0.0;
+  }
+  
+  // Helper method untuk mengekstrak photos dengan aman
+  static List<String> _parsePhotos(Map<String, dynamic> json) {
+    try {
+      if (json['photos'] is List) {
+        return List<String>.from(json['photos'].map((item) => item?.toString() ?? ''));
+      } else {
+        return json.entries
+          .where((entry) => entry.key.startsWith('photo') && entry.value != null && entry.value.toString().isNotEmpty)
+          .map((entry) => entry.value.toString())
+          .toList();
+      }
+    } catch (_) {
+      return [];
+    }
+  }
 
   Map<String, dynamic> toJson() => {
     'id': id,
