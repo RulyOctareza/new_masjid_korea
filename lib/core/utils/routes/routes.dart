@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:masjid_korea/data/models/remote/masjid_model.dart';
 import 'package:masjid_korea/presentation/pages/comunity/comunity_masjid_page.dart';
 import 'package:masjid_korea/presentation/pages/detail/detail_page.dart';
-import 'package:masjid_korea/presentation/pages/error/error_page.dart';
 import 'package:masjid_korea/presentation/pages/gallery/gallery_page.dart';
 import 'package:masjid_korea/presentation/pages/homepage/homepage.dart';
 import 'package:masjid_korea/presentation/pages/search/search_page.dart';
