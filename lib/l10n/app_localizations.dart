@@ -106,6 +106,17 @@ abstract class AppLocalizations {
   String get prayerTimesTitle;
   String get prayerTimesMessage;
 
+  // Prayer times labels
+  String get fajrLabel;
+  String get sunriseLabel;
+  String get dhuhrLabel;
+  String get asrLabel;
+  String get maghribLabel;
+  String get ishaLabel;
+  
+  // Time zone badge label for Prayer Times
+  String get timeZoneKstGmt9;
+  
   // Additional UI strings
   String get photosTitle;
   String get goToMasjidLabel;

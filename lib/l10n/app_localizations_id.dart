@@ -128,9 +128,25 @@ class AppLocalizationsId extends AppLocalizations {
   String pageNotFound(String error) => 'Halaman tidak ditemukan: $error';
 
   @override
-  String get prayerTimesTitle => 'Jadwal Sholat (segera hadir)';
+  String get prayerTimesTitle => 'Jadwal Sholat';
   @override
-  String get prayerTimesMessage => 'Segera hadir. Integrasi jadwal sholat akan ditambahkan pada rilis berikutnya.';
+  String get prayerTimesMessage => 'Dihitung menggunakan metode Muslim World League (MWL).';
+  @override
+  String get fajrLabel => 'Subuh';
+  @override
+  String get sunriseLabel => 'Matahari Terbit';
+  @override
+  String get dhuhrLabel => 'Zuhur';
+  @override
+  String get asrLabel => 'Asar';
+  @override
+  String get maghribLabel => 'Maghrib';
+  @override
+  String get ishaLabel => 'Isya';
+
+  // Time zone badge label for Prayer Times
+  @override
+  String get timeZoneKstGmt9 => 'KST (GMT+9)';
 
   // Additional UI strings
   @override

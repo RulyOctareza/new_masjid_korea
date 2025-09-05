@@ -129,9 +129,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String pageNotFound(String error) => 'Page not found: $error';
 
   @override
-  String get prayerTimesTitle => 'Prayer Times (coming soon)';
+  String get prayerTimesTitle => 'Prayer Times';
   @override
-  String get prayerTimesMessage => "We're working on integrating accurate prayer times for each mosque location.";
+  String get prayerTimesMessage => 'Calculated using Muslim World League (MWL) method.';
+  @override
+  String get fajrLabel => 'Fajr';
+  @override
+  String get sunriseLabel => 'Sunrise';
+  @override
+  String get dhuhrLabel => 'Dhuhr';
+  @override
+  String get asrLabel => 'Asr';
+  @override
+  String get maghribLabel => 'Maghrib';
+  @override
+  String get ishaLabel => 'Isha';
+
+  // Time zone badge label for Prayer Times
+  @override
+  String get timeZoneKstGmt9 => 'KST (GMT+9)';
 
   // Additional UI strings
   @override

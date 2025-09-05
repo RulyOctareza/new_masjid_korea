@@ -129,10 +129,26 @@ class AppLocalizationsKo extends AppLocalizations {
   String pageNotFound(String error) => '페이지를 찾을 수 없습니다: $error';
 
   @override
-  String get prayerTimesTitle => '기도 시간 (곧 제공 예정)';
+  String get prayerTimesTitle => '기도 시간';
   @override
-  String get prayerTimesMessage => '각 모스크 위치에 대한 정확한 기도 시간 통합을 준비 중입니다.';
-
+  String get prayerTimesMessage => 'Muslim World League (MWL) 방식으로 계산되었습니다.';
+  @override
+  String get fajrLabel => '파즈르';
+  @override
+  String get sunriseLabel => '일출';
+  @override
+  String get dhuhrLabel => '주후(두후르)';
+  @override
+  String get asrLabel => '아스르';
+  @override
+  String get maghribLabel => '마그립';
+  @override
+  String get ishaLabel => '이샤';
+  
+  // Time zone badge label for Prayer Times
+  @override
+  String get timeZoneKstGmt9 => 'KST (GMT+9)';
+  
   // Additional UI strings
   @override
   String get photosTitle => '사진';

@@ -7,6 +7,8 @@ import 'package:masjid_korea/data/models/remote/masjid_model.dart';
 import 'package:masjid_korea/core/network/service/map_utils.dart';
 import 'package:masjid_korea/l10n/app_localizations.dart';
 import 'package:flutter/gestures.dart';
+import 'package:intl/intl.dart';
+import 'package:adhan_dart/adhan_dart.dart';
 
 class MosqueDetailPage extends StatefulWidget {
   final MasjidModel masjid;
@@ -135,7 +137,7 @@ class _MosqueDetailPageState extends State<MosqueDetailPage> {
                   const SizedBox(height: 16),
 
                   // Stub Jadwal Sholat
-                  const _PrayerTimesStub(),
+                  PrayerTimesCard(masjid: m),
 
                   const SizedBox(height: 24),
                 ],
@@ -244,27 +246,132 @@ class _DotIndicators extends StatelessWidget {
   }
 }
 
-class _PrayerTimesStub extends StatelessWidget {
-  const _PrayerTimesStub();
+class PrayerTimesCard extends StatelessWidget {
+  final MasjidModel masjid;
+  const PrayerTimesCard({super.key, required this.masjid});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
+
+    final lat = masjid.latitude;
+    final lon = masjid.longitude;
+
+    // Jika koordinat belum tersedia, tampilkan placeholder yang ramah
+    if (lat == 0.0 && lon == 0.0) {
+      return Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: theme.colorScheme.outlineVariant),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(l10n.prayerTimesTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
+              Text(l10n.prayerTimesMessage, style: theme.textTheme.bodyMedium),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Hitung jadwal sholat menggunakan MWL + Shafi
+    final coords = Coordinates(lat, lon);
+    final params = CalculationMethod.muslimWorldLeague();
+    params.madhab = Madhab.shafi;
+
+    // Paksa zona waktu Korea (KST, GMT+9) untuk tanggal perhitungan dan tampilan
+    const kstOffset = Duration(hours: 9);
+    final nowKst = DateTime.now().toUtc().add(kstOffset);
+
+    final pt = PrayerTimes(
+      coordinates: coords,
+      date: nowKst,
+      calculationParameters: params,
+    );
+
+    DateTime _toKst(DateTime dt) => dt.toUtc().add(kstOffset);
+    // Format 24-jam sesuai permintaan (HH:mm)
+    String fmt(DateTime? dt) => dt == null ? '-' : DateFormat('HH:mm').format(_toKst(dt));
+
+    final rows = <_PrayerRow>[
+      _PrayerRow(label: l10n.fajrLabel, time: fmt(pt.fajr)),
+      _PrayerRow(label: l10n.sunriseLabel, time: fmt(pt.sunrise)),
+      _PrayerRow(label: l10n.dhuhrLabel, time: fmt(pt.dhuhr)),
+      _PrayerRow(label: l10n.asrLabel, time: fmt(pt.asr)),
+      _PrayerRow(label: l10n.maghribLabel, time: fmt(pt.maghrib)),
+      _PrayerRow(label: l10n.ishaLabel, time: fmt(pt.isha)),
+    ];
+
     return Card(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: theme.colorScheme.outlineVariant)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: theme.colorScheme.outlineVariant),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n.prayerTimesTitle, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+            // Header dengan label zona waktu KST (GMT+9)
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    l10n.prayerTimesTitle,
+                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(color: theme.colorScheme.outlineVariant),
+                  ),
+                  child: Text(
+                    l10n.timeZoneKstGmt9,
+                    style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Column(
+              children: rows
+                  .map((r) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(r.label, style: theme.textTheme.bodyMedium),
+                            ),
+                            Text(r.time, style: theme.textTheme.bodyMedium?.copyWith(fontFeatures: const [FontFeature.tabularFigures()])),
+                          ],
+                        ),
+                      ))
+                  .toList(),
+            ),
             const SizedBox(height: 8),
-            Text(l10n.prayerTimesMessage, style: theme.textTheme.bodyMedium),
+            Text(
+              l10n.prayerTimesMessage,
+              style: theme.textTheme.bodySmall?.copyWith(color: theme.hintColor),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class _PrayerRow {
+  final String label;
+  final String time;
+  _PrayerRow({required this.label, required this.time});
 }
