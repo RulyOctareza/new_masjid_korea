@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/presentation/extensions/navigator_extensions.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class Searchbox extends StatelessWidget {
   final TextEditingController controller;
@@ -13,12 +14,13 @@ class Searchbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
-          hintText: 'Cari Masjid...',
+          hintText: l10n.searchHint,
           suffix: IconButton(
             onPressed: () {
               context.goBack();

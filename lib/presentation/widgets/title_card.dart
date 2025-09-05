@@ -4,12 +4,14 @@ import 'package:masjid_korea/presentation/cubit/theme_masjid.dart';
 import 'package:masjid_korea/presentation/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/presentation/extensions/text_extensions.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class TitleCard extends StatelessWidget {
   const TitleCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,7 +22,7 @@ class TitleCard extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: edge, right: edge),
-                child: Text('Explore Now', style: context.textTheme.titleLarge),
+                child: Text(l10n.exploreNowLabel, style: context.textTheme.titleLarge),
               ),
               const Spacer(),
               IconButton(
@@ -42,7 +44,7 @@ class TitleCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: edge),
           child: Text(
-            'Let\'s go to Mosque !',
+            l10n.letsGoToMosqueLabel,
             style: context.textTheme.titleMedium,
           ),
         ),

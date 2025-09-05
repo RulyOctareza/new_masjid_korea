@@ -4,6 +4,7 @@ import 'package:masjid_korea/presentation/extensions/text_extensions.dart';
 import 'package:masjid_korea/data/models/remote/masjid_model.dart';
 import 'package:masjid_korea/core/network/service/map_utils.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class DetailLocation extends StatelessWidget {
   final MasjidModel masjid;
@@ -12,13 +13,14 @@ class DetailLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.only(left: 24),
           child: Text(
-            'Location',
+            l10n.locationLabel,
             style: context.textTheme.bodyLarge?.copyWith(
               fontSize: 16.toDouble(),
             ),
@@ -34,25 +36,39 @@ class DetailLocation extends StatelessWidget {
                 child: Text(masjid.location, style: greyTextStyle),
               ),
               Spacer(),
-              GestureDetector(
-                onTap: () async {
-                  await Clipboard.setData(ClipboardData(text: masjid.location));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      padding: EdgeInsets.all(8),
-                      backgroundColor: Colors.green,
-                      content: Text('Location copied to clipboard!'),
-                    ),
-                  );
-                },
-                child: const Icon(Icons.copy),
+              Tooltip(
+                message: l10n.copyLocationTooltip,
+                child: Semantics(
+                  button: true,
+                  label: l10n.copyLocationTooltip,
+                  child: IconButton(
+                    icon: const Icon(Icons.copy),
+                    onPressed: () async {
+                      await Clipboard.setData(ClipboardData(text: masjid.location));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          padding: const EdgeInsets.all(8),
+                          backgroundColor: Colors.green,
+                          content: Text(l10n.locationCopiedMessage),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
               const SizedBox(width: 35),
-              GestureDetector(
-                onTap: () async {
-                  await MapUtils().openKakaoMap(masjid.address);
-                },
-                child: const Icon(Icons.map_rounded),
+              Tooltip(
+                message: l10n.openMapTooltip,
+                child: Semantics(
+                  button: true,
+                  label: l10n.openMapTooltip,
+                  child: IconButton(
+                    icon: const Icon(Icons.map_rounded),
+                    onPressed: () async {
+                      await MapUtils().openKakaoMap(masjid.address);
+                    },
+                  ),
+                ),
               ),
             ],
           ),

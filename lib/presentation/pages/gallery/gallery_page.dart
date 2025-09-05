@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/presentation/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/data/models/remote/masjid_model.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class GalleryPage extends StatelessWidget {
   final MasjidModel masjid;
@@ -8,8 +9,9 @@ class GalleryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Photos')),
+      appBar: AppBar(title: Text(l10n.photosTitle)),
       body: Column(
         children: [
           Expanded(

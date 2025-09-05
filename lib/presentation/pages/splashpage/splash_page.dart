@@ -3,12 +3,14 @@ import 'package:masjid_korea/presentation/cubit/theme_masjid.dart';
 import 'package:masjid_korea/presentation/extensions/navigator_extensions.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return BlocBuilder<ThemeCubit, ThemeMode>(
       builder: (context, themeMode) {
         return Scaffold(
@@ -58,7 +60,7 @@ class SplashPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 40),
                             Text(
-                              'Cari Rumah Allah di\nKorea Selatan',
+                              l10n.homeHeadline,
                               style: blackTextStyle.copyWith(
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
@@ -67,7 +69,7 @@ class SplashPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              'Mari luangkan waktu untuk\nberibadah di Negeri Ginseng',
+                              l10n.homeSubtitle,
                               style: blackTextStyle.copyWith(fontSize: 20),
                               textAlign: TextAlign.center,
                             ),
@@ -86,7 +88,7 @@ class SplashPage extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  'Explore Now',
+                                  l10n.exploreNowLabel,
                                   style: whiteTextStyle.copyWith(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -133,12 +135,12 @@ class SplashPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 30),
                           Text(
-                            'Cari Rumah Allah di\nKorea Selatan',
+                            l10n.homeHeadline,
                             style: blackTextStyle.copyWith(fontSize: 24),
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Mari luangkan waktu untuk\nberibadah di Negeri Ginseng ',
+                            l10n.homeSubtitle,
                             style: whiteTextStyle.copyWith(fontSize: 16),
                           ),
                           const SizedBox(height: 40),
@@ -153,7 +155,7 @@ class SplashPage extends StatelessWidget {
                                 backgroundColor: purpleColor,
                               ),
                               child: Text(
-                                'Explore Now',
+                                l10n.exploreNowLabel,
                                 style: whiteTextStyle.copyWith(fontSize: 18),
                               ),
                             ),

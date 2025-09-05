@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/presentation/extensions/text_extensions.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class SearchpageHeader extends StatelessWidget {
   const SearchpageHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,20 +37,20 @@ class SearchpageHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Selamat Datang di Korea Masjid',
+                l10n.searchWelcomeTitle,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 16),
               Text(
-                'Temukan masjid terdekat di Korea Selatan dengan mudah dan cepat.',
+                l10n.searchWelcomeSubtitle,
                 style: context.textTheme.bodyMedium?.copyWith(
                   fontSize: 16.toDouble(),
                 ),
               ),
               const SizedBox(height: 24),
-              ElevatedButton(onPressed: () {}, child: const Text('Mulai Cari')),
+              ElevatedButton(onPressed: () {}, child: Text(l10n.searchStartCta)),
             ],
           ),
         ),

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:masjid_korea/presentation/cubit/masjid_cubit.dart';
 import 'package:masjid_korea/presentation/cubit/theme_masjid.dart';
-import 'package:masjid_korea/data/models/remote/masjid_model.dart';
-import 'package:masjid_korea/core/utils/routes/routes.dart';
+import 'package:masjid_korea/routes/app_router.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:masjid_korea/presentation/cubit/locale_cubit.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 import 'firebase_options.dart';
 
@@ -31,35 +33,20 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final MasjidModel defaultMasjid = MasjidModel(
-    id: '1',
-    name: 'Masjid Al-Ishlah',
-    location: 'Gwangju',
-    city: 'Gwangju',
-    address: 'Gwangju, South Korea',
-    imageUrl: '',
-    rating: 0.0,
-    photos: [],
-    comunity: 'default',
-    latitude: 0.0,
-    longitude: 0.0,
-  );
-
   /// Global navigator key untuk kebutuhan navigasi universal
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  /// Konfigurasi MaterialApp agar mudah di-maintain dan scalable
-  Widget _buildMaterialApp(ThemeMode themeMode) {
-    final appRoutes = AppRoutes(defaultMasjid);
-    return MaterialApp(
+  /// Konfigurasi MaterialApp dengan GoRouter agar URL dan navigasi modern
+  Widget _buildMaterialApp(ThemeMode themeMode, Locale locale) {
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: themeMode,
-      initialRoute: '/',
-      routes: appRoutes.getRoutes(),
-      navigatorKey: _navigatorKey, // Untuk kebutuhan navigasi global
-      // TODO: Tambahkan localization, dll jika dibutuhkan
+      routerConfig: buildRouter(_navigatorKey),
+      locale: locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
     );
   }
 
@@ -69,11 +56,16 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => MasjidCubit()),
         BlocProvider(create: (context) => ThemeCubit()),
+        BlocProvider(create: (context) => LocaleCubit()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
           // Builder untuk theme dan routing
-          return _buildMaterialApp(themeMode);
+          return BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) {
+              return _buildMaterialApp(themeMode, locale);
+            },
+          );
         },
       ),
     );

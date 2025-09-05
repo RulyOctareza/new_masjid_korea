@@ -5,6 +5,7 @@ import 'package:masjid_korea/core/usecases/distance_calculate.dart';
 import 'package:masjid_korea/core/usecases/location_service.dart';
 import 'package:masjid_korea/core/network/service/masjid_sorting_service.dart';
 import 'package:masjid_korea/presentation/widgets/card/masjid_card.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class MasjidTerdekat extends StatefulWidget {
   final List<MasjidModel> masjids;
@@ -26,19 +27,20 @@ class _MasjidTerdekatState extends State<MasjidTerdekat> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     if (!_locationService.locationServiceEnabled ||
         !_locationService.permissionGranted) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Please allow location services !'),
+            Text(l10n.pleaseAllowLocationMessage),
             ElevatedButton(
               onPressed: () async {
                 await _locationService.getLocation();
                 setState(() {});
               },
-              child: const Text('Try Again !'),
+              child: Text(l10n.tryAgainLabel),
             ),
           ],
         ),
@@ -62,7 +64,7 @@ class _MasjidTerdekatState extends State<MasjidTerdekat> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Mosques closest to you',
+            l10n.mosquesClosestToYouLabel,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),

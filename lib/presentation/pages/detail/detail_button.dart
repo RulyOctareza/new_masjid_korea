@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:masjid_korea/data/models/remote/masjid_model.dart';
 import 'package:masjid_korea/core/network/service/map_utils.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class DetailButton extends StatelessWidget {
   final MasjidModel masjid;
@@ -10,7 +11,9 @@ class DetailButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final l10n = AppLocalizations.of(context);
+    return Container
+(
       margin: EdgeInsets.symmetric(horizontal: edge),
       height: 50,
       width: MediaQuery.of(context).size.width - (2 * edge),
@@ -20,7 +23,7 @@ class DetailButton extends StatelessWidget {
           await MapUtils().openKakaoMap(masjid.address);
         },
         style: ElevatedButton.styleFrom(backgroundColor: purpleColor),
-        child: Text('Go to Masjid', style: whiteTextStyle),
+        child: Text(l10n.goToMasjidLabel, style: whiteTextStyle),
       ),
     );
   }

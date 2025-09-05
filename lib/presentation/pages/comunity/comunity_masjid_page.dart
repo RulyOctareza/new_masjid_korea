@@ -5,6 +5,7 @@ import 'package:masjid_korea/presentation/cubit/masjid_cubit.dart';
 import 'package:masjid_korea/presentation/cubit/theme_masjid.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
 import 'package:masjid_korea/presentation/widgets/card/masjid_card.dart';
+import 'package:masjid_korea/l10n/app_localizations.dart';
 
 class CommunityMasjidPage extends StatelessWidget {
   final String community;
@@ -13,6 +14,7 @@ class CommunityMasjidPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return BlocBuilder<ThemeCubit, ThemeMode>(
       builder: (context, themeMode) {
         return Scaffold(
@@ -27,7 +29,7 @@ class CommunityMasjidPage extends StatelessWidget {
                           : whiteColor,
                   appBar: AppBar(
                     title: Text(
-                      'Mosque in Area $community',
+                      l10n.mosqueInAreaTitle(community),
                       style:
                           themeMode == ThemeMode.dark
                               ? whiteTextStyle
@@ -54,8 +56,8 @@ class CommunityMasjidPage extends StatelessWidget {
                                       .toList();
 
                               if (masjids.isEmpty) {
-                                return const Center(
-                                  child: Text('No Mosque in the Community'),
+                                return Center(
+                                  child: Text(l10n.noMosqueInCommunityMessage),
                                 );
                               }
 
@@ -81,11 +83,11 @@ class CommunityMasjidPage extends StatelessWidget {
                             } else if (state is MasjidFailed) {
                               return Center(
                                 child: Text(
-                                  'Failed to load Mosque: ${state.error}',
+                                  l10n.failedToLoadMosqueMessage(state.error),
                                 ),
                               );
                             } else {
-                              return const Center(child: Text('No Mosque'));
+                              return Center(child: Text(l10n.noMosqueMessage));
                             }
                           },
                         ),

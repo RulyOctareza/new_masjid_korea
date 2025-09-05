@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:geolocator/geolocator.dart';
-import 'package:web/web.dart' as web;
 
 class LocationService {
   Position? _currentPosition;
@@ -61,13 +60,9 @@ class LocationService {
     }
 
     _permissionGranted = true;
+
+    _currentPosition = await Geolocator.getCurrentPosition();
     _locationServiceEnabled = true;
-
-    Position position = await Geolocator.getCurrentPosition(
-      locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
-    );
-
-    log('Location data: ${position.latitude}, ${position.longitude}');
-    _currentPosition = position;
+    log('Native location data: ${_currentPosition?.latitude}, ${_currentPosition?.longitude}');
   }
 }
