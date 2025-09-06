@@ -35,13 +35,17 @@ GoRouter buildRouter(GlobalKey<NavigatorState> key) {
       GoRoute(
         path: '/home',
         name: 'home',
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) {
+          final community = state.uri.queryParameters['community'];
+          return HomePage(
+            initialCommunity: (community != null && community.isNotEmpty) ? community : null,
+          );
+        },
       ),
       GoRoute(
         path: '/search',
         name: 'search',
         builder: (context, state) {
-          final l10n = AppLocalizations.of(context);
           // Terapkan query params untuk filters (kota, radius, q) dan tampilan peta
           final qp = state.uri.queryParameters;
           final view = qp['view'];
@@ -62,50 +66,44 @@ GoRouter buildRouter(GlobalKey<NavigatorState> key) {
               radiusKm: radiusKm,
             );
           }
-          return const legacy_search.SearchPage();
+          // Kirimkan initialQuery ke halaman list pencarian
+          final q = qp['q'];
+          return legacy_search.SearchPage(initialQuery: q);
         },
       ),
-      // Detail masjid: gunakan ID dari path untuk resolve MasjidModel dari MasjidCubit
+
+      // Detail masjid (fitur baru)
       GoRoute(
         path: '/mosques/:id',
         name: 'mosque_detail',
         builder: (context, state) {
-          final l10n = AppLocalizations.of(context);
           final id = state.pathParameters['id'];
           if (id == null || id.isEmpty) {
+            final l10n = AppLocalizations.of(context);
             return Scaffold(
-              appBar: AppBar(title: Text(l10n.mosqueDetailTitle)),
               body: Center(child: Text(l10n.invalidMosqueId)),
             );
           }
-
-          final masjidState = context.read<MasjidCubit>().state;
-          if (masjidState is MasjidSuccess) {
-            final List<MasjidModel> list = masjidState.masjid;
-            MasjidModel? found;
-            for (final m in list) {
-              if (m.id.toString() == id) {
-                found = m;
-                break;
+          return BlocBuilder<MasjidCubit, MasjidState>(
+            builder: (context, s) {
+              if (s is MasjidSuccess) {
+                final m = s.masjid.firstWhere(
+                  (e) => e.id == id,
+                  orElse: () => const MasjidModel(id: ''),
+                );
+                if (m.id.isEmpty) {
+                  final l10n = AppLocalizations.of(context);
+                  return Scaffold(body: Center(child: Text(l10n.mosqueNotFound)));
+                }
+                return MosqueDetailPage(masjid: m);
               }
-            }
-            if (found != null) {
-               return MosqueDetailPage(masjid: found);
-             } else {
-               return Scaffold(
-                 appBar: AppBar(title: Text('${l10n.mosqueDetailTitle} #$id')),
-                 body: Center(child: Text(l10n.mosqueNotFound)),
-               );
-             }
-          }
-
-          // Jika data belum siap, tampilkan loading sederhana
-          return Scaffold(
-            appBar: AppBar(title: Text('${l10n.mosqueDetailTitle} #$id')),
-            body: const Center(child: CircularProgressIndicator()),
+              return const Scaffold(body: Center(child: CircularProgressIndicator()));
+            },
           );
         },
       ),
+
+      // Gallery placeholder (TODO)
       GoRoute(
         path: '/gallery',
         name: 'gallery',

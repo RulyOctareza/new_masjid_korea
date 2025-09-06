@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masjid_korea/presentation/extensions/text_extensions.dart';
 import 'package:masjid_korea/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchpageHeader extends StatelessWidget {
   const SearchpageHeader({super.key});
@@ -25,6 +26,11 @@ class SearchpageHeader extends StatelessWidget {
                 child: Image.asset(
                   'assets/images/masjid.jpg',
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: Colors.grey.shade300,
+                    alignment: Alignment.center,
+                    child: const Icon(Icons.image_not_supported_outlined),
+                  ),
                 ),
               ),
             ),
@@ -46,11 +52,16 @@ class SearchpageHeader extends StatelessWidget {
               Text(
                 l10n.searchWelcomeSubtitle,
                 style: context.textTheme.bodyMedium?.copyWith(
-                  fontSize: 16.toDouble(),
+                  fontSize: 16.0,
                 ),
               ),
               const SizedBox(height: 24),
-              ElevatedButton(onPressed: () {}, child: Text(l10n.searchStartCta)),
+              ElevatedButton(
+                onPressed: () {
+                  context.push('/search?view=map');
+                },
+                child: Text(l10n.searchStartCta),
+              ),
             ],
           ),
         ),

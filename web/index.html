@@ -1,38 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
+    Jika deploy di subfolder (bukan root), ubah base href saat build:
+    flutter build web --base-href /nama-subfolder/
   -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MasjidKorea — Temukan masjid di Korea dengan mudah.">
+  <meta name="theme-color" content="#0ea5e9">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="masjid_korea">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MasjidKorea">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>masjid_korea</title>
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="manifest" href="manifest.json">
+
+  <!--
+    CSP longgar namun aman untuk Flutter Web + Firebase.
+    Catatan:
+    - Jika server kamu sudah memasang header CSP sendiri, header tsb. akan menang.
+    - Tambahkan/kurangi origin sesuai layanan Firebase yang dipakai (auth, firestore, storage, dll).
+  -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://www.gstatic.com https://www.googleapis.com 'unsafe-eval' 'wasm-unsafe-eval';
+    connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://www.googleapis.com;
+    img-src 'self' data: blob: https:;
+    style-src 'self' 'unsafe-inline';
+    font-src 'self' data: https:;
+    media-src 'self' blob: https:;
+    worker-src 'self' blob:;
+    frame-src 'self' https://*.firebaseapp.com https://*.google.com https://*.firebaseapp.com;
+  ">
+
+  <title>MasjidKorea</title>
 </head>
 <body>
+  <noscript>
+    <p>Untuk menjalankan aplikasi ini, aktifkan JavaScript.</p>
+  </noscript>
+
+  <!--
+    flutter_bootstrap.js akan mengatur service worker & load app.
+    Jangan menambahkan script Firebase CDN di sini (biar FlutterFire yang inject).
+  -->
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

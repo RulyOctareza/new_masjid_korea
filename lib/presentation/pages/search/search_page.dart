@@ -6,9 +6,12 @@ import 'package:masjid_korea/data/models/remote/masjid_model.dart';
 import 'package:masjid_korea/presentation/pages/search/daftar_masjid.dart';
 import 'package:masjid_korea/presentation/pages/search/searchbox.dart';
 import 'package:masjid_korea/presentation/pages/search/searchpage_header.dart';
+import 'package:masjid_korea/widgets/error_state.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  const SearchPage({super.key, this.initialQuery});
+
+  final String? initialQuery;
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -22,6 +25,21 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
+
+    // Prefill query dari router (jika ada) dan langsung filter
+    final initialQ = widget.initialQuery;
+    if (initialQ != null && initialQ.trim().isNotEmpty) {
+      _searchController.text = initialQ;
+    }
+
+    final cubit = context.read<MasjidCubit>();
+    final current = cubit.state;
+    if (current is! MasjidLoading && current is! MasjidSuccess) {
+      cubit.fetchMasjid();
+    }
+
+    // Jalankan filter awal jika sudah ada nilai
+    WidgetsBinding.instance.addPostFrameCallback((_) => _onSearchChanged());
   }
 
   @override
@@ -37,14 +55,18 @@ class _SearchPageState extends State<SearchPage> {
             ? (context.read<MasjidCubit>().state as MasjidSuccess).masjid
             : <MasjidModel>[];
     setState(() {
-      _filteredMasjids =
-          masjids
-              .where(
-                (masjid) => masjid.name.toLowerCase().contains(
-                  _searchController.text.toLowerCase(),
-                ),
-              )
-              .toList();
+      final query = _searchController.text.trim().toLowerCase();
+      if (query.isEmpty) {
+        _filteredMasjids = masjids;
+      } else {
+        _filteredMasjids = masjids
+            .where(
+              (masjid) => masjid.name.toLowerCase().contains(query) ||
+                  masjid.city.toLowerCase().contains(query) ||
+                  masjid.address.toLowerCase().contains(query),
+            )
+            .toList();
+      }
     });
   }
 
@@ -57,7 +79,7 @@ class _SearchPageState extends State<SearchPage> {
         child: BlocBuilder<MasjidCubit, MasjidState>(
           builder: (context, state) {
             if (state is MasjidSuccess) {
-              if (_filteredMasjids.isEmpty) {
+              if (_filteredMasjids.isEmpty && _searchController.text.isEmpty) {
                 _filteredMasjids = state.masjid;
               }
               return Center(
@@ -100,6 +122,10 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   ),
                 ),
+              );
+            } else if (state is MasjidFailed) {
+              return ErrorStateWidget(
+                onRetry: () => context.read<MasjidCubit>().fetchMasjid(),
               );
             }
             return Center(

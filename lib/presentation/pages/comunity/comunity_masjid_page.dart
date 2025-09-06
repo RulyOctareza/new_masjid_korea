@@ -4,8 +4,9 @@ import 'package:lottie/lottie.dart';
 import 'package:masjid_korea/presentation/cubit/masjid_cubit.dart';
 import 'package:masjid_korea/presentation/cubit/theme_masjid.dart';
 import 'package:masjid_korea/core/theme/theme.dart';
-import 'package:masjid_korea/presentation/widgets/card/masjid_card.dart';
+import 'package:masjid_korea/features/mosque/widgets/mosque_card.dart';
 import 'package:masjid_korea/l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class CommunityMasjidPage extends StatelessWidget {
   final String community;
@@ -67,7 +68,10 @@ class CommunityMasjidPage extends StatelessWidget {
                                   return Column(
                                     children: [
                                       const SizedBox(height: 10),
-                                      MasjidCard(masjids[index]),
+                                      MosqueCard(
+                                        masjid: masjids[index],
+                                        onTap: () => context.push('/mosques/${masjids[index].id}'),
+                                      ),
                                     ],
                                   );
                                 },

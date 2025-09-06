@@ -39,9 +39,11 @@ class MosqueCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: theme.dividerColor.withValues(alpha: 0.4)),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+          child: SizedBox(
+            height: 110, // Berikan height constraint eksplisit untuk menghindari infinite height
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
               // Thumbnail
               ClipRRect(
                 borderRadius: const BorderRadius.only(
@@ -127,7 +129,8 @@ class MosqueCard extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

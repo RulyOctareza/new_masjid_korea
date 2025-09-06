@@ -45,5 +45,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Location permission usage descriptions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Aplikasi memerlukan akses lokasi Anda untuk menampilkan masjid terdekat di sekitar Anda.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Aplikasi memerlukan akses lokasi untuk pengalaman terbaik saat mencari masjid terdekat.</string>
 </dict>
 </plist>

@@ -105,30 +105,16 @@ class _MosqueDetailPageState extends State<MosqueDetailPage> {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  m.address.isEmpty ? l10n.addressUnavailable : m.address,
+                                  // Tampilkan alamat asli (huruf Korea) dari Firebase di field `location`
+                                  m.location.isNotEmpty
+                                      ? m.location
+                                      : (m.address.isNotEmpty ? m.address : l10n.addressUnavailable),
                                   style: theme.textTheme.bodyMedium,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 12),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: FilledButton.icon(
-                              onPressed: () async {
-                                try {
-                                  await MapUtils().openKakaoMap(m.address);
-                                } catch (e) {
-                                  if (!mounted) return;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(l10n.failedOpenMap('$e'))),
-                                  );
-                                }
-                              },
-                              icon: const Icon(Icons.navigation),
-                              label: Text(l10n.openInMaps),
-                            ),
-                          ),
+                          // Hapus tombol inline agar fokus pada FAB melayang
                         ],
                       ),
                     ),
@@ -145,6 +131,22 @@ class _MosqueDetailPageState extends State<MosqueDetailPage> {
             ),
           ),
         ],
+      ),
+      // Tombol "Buka di Maps" sebagai floating action button melayang
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          try {
+            // Tetap gunakan alamat URL/kata kunci dari field address untuk membuka peta (Kakao)
+            await MapUtils().openKakaoMap(m.address.isNotEmpty ? m.address : m.location);
+          } catch (e) {
+            if (!mounted) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.failedOpenMap('$e'))),
+            );
+          }
+        },
+        icon: const Icon(Icons.map),
+        label: Text(l10n.openInMaps),
       ),
     );
   }

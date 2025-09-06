@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:masjid_korea/presentation/pages/detail/detail_page.dart';
-import 'package:masjid_korea/presentation/widgets/card/masjid_card.dart';
+// Removed legacy detail page import; MasjidCard handles navigation
+import 'package:masjid_korea/features/mosque/widgets/mosque_card.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../data/models/remote/masjid_model.dart';
 import '../../core/theme/theme.dart';
@@ -33,19 +34,18 @@ class RekomendasiMasjid extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        Column(
-          children:
-              displayedMasjid.map((masjid) {
-                return InkWell(
-                  onTap:
-                      () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => DetailPage(masjid: masjid),
-                        ),
-                      ),
-                  child: MasjidCard(masjid),
-                );
-              }).toList(),
+        Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 700),
+            child: Column(
+              children: displayedMasjid
+                  .map((m) => MosqueCard(
+                        masjid: m,
+                        onTap: () => context.push('/mosques/${m.id}'),
+                      ))
+                  .toList(),
+            ),
+          ),
         ),
       ],
     );

@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 extension NavigatorExtensions on BuildContext {
-  /// Navigasi ke halaman dengan nama route
-  void navigateTo(String routeName, {Object? arguments}) {
-    Navigator.pushNamed(this, routeName, arguments: arguments);
+  /// Navigasi ke halaman dengan path (dipush agar tombol back tersedia)
+  void navigateTo(String routePath, {Object? arguments}) {
+    // Catatan: arguments tidak digunakan untuk path-based routing.
+    // Gunakan state.extra jika perlu meneruskan objek kompleks via GoRouter.
+    push(routePath);
   }
 
-  /// Navigasi ke halaman tertentu, lalu menghapus semua halaman sebelumnya
-  void navigateAndRemove(String routeName, {Object? arguments}) {
-    Navigator.pushNamedAndRemoveUntil(
-      this,
-      routeName,
-      (route) => false,
-      arguments: arguments,
-    );
+  /// Navigasi ke halaman tertentu dan menghapus semua halaman sebelumnya
+  void navigateAndRemove(String routePath, {Object? arguments}) {
+    // go() mengganti stack historis, cocok untuk navigasi one-way (splash -> home)
+    go(routePath);
   }
 
-  /// Navigasi ke halaman tertentu, lalu menghapus halaman sebelumnya saja
-  void navigateAndReplace(String routeName, {Object? arguments}) {
-    Navigator.pushReplacementNamed(this, routeName, arguments: arguments);
+  /// Navigasi mengganti halaman saat ini saja
+  void navigateAndReplace(String routePath, {Object? arguments}) {
+    replace(routePath);
   }
 
   /// Kembali ke halaman sebelumnya
   void goBack() {
-    Navigator.pop(this);
+    pop();
   }
 }

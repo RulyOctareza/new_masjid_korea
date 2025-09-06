@@ -15,7 +15,6 @@ class BrandTokens extends ThemeExtension<BrandTokens> {
 }
 
 ThemeData buildAppTheme(Brightness brightness) {
-  final isDark = brightness == Brightness.dark;
   const primary = Color(0xFF1B5E20);
   const surface = Color(0xFFFAFAF9);
   const text = Color(0xFF101828);

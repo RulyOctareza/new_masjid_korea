@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:masjid_korea/presentation/extensions/text_extensions.dart';
 import 'package:masjid_korea/data/models/remote/masjid_model.dart';
-import 'package:masjid_korea/presentation/pages/gallery/gallery_page.dart';
+import 'package:go_router/go_router.dart';
 
 class DetailPhotos extends StatelessWidget {
   final MasjidModel masjid;
@@ -19,7 +20,7 @@ class DetailPhotos extends StatelessWidget {
           child: Text(
             'Photos',
             style: context.textTheme.bodyLarge?.copyWith(
-              fontSize: 16.toDouble(),
+              fontSize: 16.0,
             ),
           ),
         ),
@@ -28,31 +29,37 @@ class DetailPhotos extends StatelessWidget {
           height: 88,
           child: InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => GalleryPage(masjid)),
-              );
+              context.push('/gallery');
             },
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: photos.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                    left: index == 0 ? 24 : 0, // Add left padding only for the first item
-                    right: 18,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.network(
-                      photos[index],
-                      width: 110,
-                      height: 88,
-                      fit: BoxFit.cover,
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(
+                dragDevices: {
+                  PointerDeviceKind.touch,
+                  PointerDeviceKind.mouse,
+                  PointerDeviceKind.trackpad,
+                },
+              ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: photos.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      left: index == 0 ? 24 : 0,
+                      right: 18,
                     ),
-                  ),
-                );
-              },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        photos[index],
+                        width: 110,
+                        height: 88,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),

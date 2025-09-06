@@ -79,7 +79,7 @@ class SplashPage extends StatelessWidget {
                               height: 60,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  context.navigateAndRemove('/homepage');
+                                  context.navigateAndRemove('/home');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: purpleColor,
@@ -149,7 +149,7 @@ class SplashPage extends StatelessWidget {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                context.navigateAndRemove('/homepage');
+                                context.navigateAndRemove('/home');
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: purpleColor,

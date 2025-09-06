@@ -52,6 +52,12 @@ class _SearchMapPageState extends State<SearchMapPage> {
   void initState() {
     super.initState();
     _tabIndex = widget.showMap ? 1 : 0;
+
+    // Pastikan data masjid terambil saat halaman ini dibuka langsung (deep link)
+    final state = context.read<MasjidCubit>().state;
+    if (state is! MasjidSuccess && state is! MasjidLoading) {
+      context.read<MasjidCubit>().fetchMasjid();
+    }
   }
 
   Future<void> _useMyLocation() async {
@@ -380,9 +386,13 @@ Widget mapPanel(
               ),
               children: [
                 TileLayer(
-                  urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  subdomains: const ['a', 'b', 'c'],
+                  urlTemplate: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+                  subdomains: const ['a', 'b', 'c', 'd'],
                   userAgentPackageName: 'masjid_korea',
+                  maxZoom: 20,
+                  additionalOptions: const {
+                    'attribution': '© OpenStreetMap contributors © CARTO',
+                  },
                 ),
                 MarkerLayer(markers: markers),
               ],

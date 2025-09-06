@@ -7,11 +7,23 @@ class MasjidSortingService {
     Position? currentPosition,
     List<MasjidModel> masjids,
   ) {
+    // Jika posisi belum tersedia, jangan mengubah list sumber dan kembalikan kosong
     if (currentPosition == null) {
       return [];
     }
 
-    masjids.sort((a, b) {
+    // Salin list agar tidak memutasi state sumber (menghindari race condition pada UI)
+    final List<MasjidModel> sorted = List<MasjidModel>.from(masjids);
+
+    // Saring koordinat tidak valid (0,0) atau NaN yang dapat menyebabkan hasil aneh
+    final filtered = sorted.where((m) {
+      final lat = m.latitude;
+      final lon = m.longitude;
+      final valid = lat != 0.0 || lon != 0.0;
+      return valid && lat.isFinite && lon.isFinite;
+    }).toList();
+
+    filtered.sort((a, b) {
       double distanceA = calculateDistance(
         currentPosition.latitude,
         currentPosition.longitude,
@@ -27,6 +39,7 @@ class MasjidSortingService {
       return distanceA.compareTo(distanceB);
     });
 
-    return masjids.take(10).toList();
+    // Ambil maksimal 10 terdekat
+    return filtered.take(10).toList();
   }
 }

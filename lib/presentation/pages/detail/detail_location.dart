@@ -65,6 +65,9 @@ class DetailLocation extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.map_rounded),
                     onPressed: () async {
+                      if (masjid.address.trim().isEmpty) {
+                        return;
+                      }
                       await MapUtils().openKakaoMap(masjid.address);
                     },
                   ),
